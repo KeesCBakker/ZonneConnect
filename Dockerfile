@@ -82,22 +82,6 @@ FROM mcr.microsoft.com/dotnet/runtime:$NET_VERSION-alpine as runtime
 
 ARG API_DLL APP_DIR
 
-RUN apk add --no-cache shadow
-
-RUN groupadd -g 1000 mygroup
-
-# create a new user with user ID 1000 and add to the mygroup group
-RUN adduser --disabled-password \
-    --home "$APP_DIR" \
-    --gecos '' \
-    --uid 1000 \
-    --ingroup mygroup \
-    dotnetuser && \
-    chown -R dotnetuser:mygroup "$APP_DIR"
-
-# impersonate into the new user
-USER dotnetuser
-
 ENV \
    TZ=Europe/Amsterdam \
    DOTNET_CLI_TELEMETRY_OPTOUT=1

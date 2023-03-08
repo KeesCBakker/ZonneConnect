@@ -20,10 +20,7 @@ echo "PvOutput__SystemId=$system_id" >> .env
 
 # configure by connecting
 
-rm -rf ./data
 mkdir -p ./data
-chgrp 1000 ./data
-chmod g+rwx ./data
 
 tag="zonneconnect-cli"
 docker rm -f "$tag"

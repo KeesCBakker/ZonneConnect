@@ -21,9 +21,9 @@ echo "PvOutput__SystemId=$system_id" >> .env
 # configure by connecting
 
 if [ ! -d ./data ]; then
-  mkdir -p ./data
-  chown 1000 ./data
-  chmod 755 ./data
+	mkdir -p /app/data
+	chown -R dotnetuser:mygroup /app/data
+	chmod 750 /app/data
 fi
 
 tag="zonneconnect-cli"

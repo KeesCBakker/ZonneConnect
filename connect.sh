@@ -19,6 +19,11 @@ echo "PvOutput__ApiKey=$api_key" > .env
 echo "PvOutput__SystemId=$system_id" >> .env
 
 # configure by connecting
+
+if [ ! -d ./data ]; then
+  mkdir -p ./data;
+fi
+
 tag="zonneconnect-cli"
 docker rm -f "$tag"
 docker build . --tag "$tag"

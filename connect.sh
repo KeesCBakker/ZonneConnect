@@ -22,7 +22,7 @@ echo "PvOutput__SystemId=$system_id" >> .env
 
 if [ ! -d ./data ]; then
 	mkdir -p ./data
-	chown -R dotnetuser:mygroup ./data
+	chown -R 1000:1000 ./data
 	chmod 750 ./data
 fi
 

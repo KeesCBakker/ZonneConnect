@@ -21,7 +21,8 @@ echo "PvOutput__SystemId=$system_id" >> .env
 # configure by connecting
 
 if [ ! -d ./data ]; then
-  mkdir -p ./data;
+  mkdir -p ./data
+  chown 1000 ./data
 fi
 
 tag="zonneconnect-cli"

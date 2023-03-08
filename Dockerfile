@@ -85,6 +85,7 @@ ARG API_DLL APP_DIR
 # create a new user and change directory ownership
 RUN adduser --disabled-password \
    --home "$APP_DIR" \
+   --uid 1000 \
    --gecos '' dotnetuser && chown -R dotnetuser "$APP_DIR"
 
 # impersonate into the new user

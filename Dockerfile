@@ -88,7 +88,7 @@ RUN addgroup --gid 1000 mygroup && \
     --home "$APP_DIR" \
     --gecos '' \
     --uid 1000 \
-    --gid 1000 \
+    --grp 1000 \
     dotnetuser && \
 
 # impersonate into the new user

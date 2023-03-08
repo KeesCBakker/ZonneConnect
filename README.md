@@ -1,4 +1,4 @@
-# ZonneConnect: Write Zonneplan One solar panel stats to PVOutput
+# Zonneplan One solar panel stats to PVOutput
 
 Work in progress. Written in .NET. Uses Docker to run.
 

@@ -82,14 +82,18 @@ FROM mcr.microsoft.com/dotnet/runtime:$NET_VERSION-alpine as runtime
 
 ARG API_DLL APP_DIR
 
-# create a new user and change directory ownership
-RUN addgroup --gid 1000 mygroup && \
-    adduser --disabled-password \
+RUN apk add --no-cache shadow
+
+RUN groupadd -g 1000 mygroup
+
+# create a new user with user ID 1000 and add to the mygroup group
+RUN adduser --disabled-password \
     --home "$APP_DIR" \
     --gecos '' \
-    --u 1000 \
-    --G 1000 \
+    --uid 1000 \
+    --ingroup mygroup \
     dotnetuser && \
+    chown -R dotnetuser:mygroup "$APP_DIR"
 
 # impersonate into the new user
 USER dotnetuser

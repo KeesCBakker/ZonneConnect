@@ -25,7 +25,7 @@ mkdir -p ./data
 tag="zonneconnect-cli"
 docker rm -f "$tag"
 docker build . --tag "$tag"
-docker run -it --name "$tag" --user dotnetuser -v "$(pwd)/data:/app/data" --entrypoint dotnet "$tag" /app/ZonneConnect.dll connect "$email"
+docker run -it --name "$tag" -v "$(pwd)/data:/app/data" --entrypoint dotnet "$tag" /app/ZonneConnect.dll connect "$email"
 docker rm "$tag"
 
 echo ""

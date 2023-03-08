@@ -1,0 +1,10 @@
+version: "3.9"
+services:
+  job:
+    restart: always
+    image: zonneconnect:latest
+    build: .
+    volumes:
+        - ./data:/app/data 
+    env_file:
+        - ./.env

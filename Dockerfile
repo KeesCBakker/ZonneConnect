@@ -87,8 +87,8 @@ RUN addgroup --gid 1000 mygroup && \
     adduser --disabled-password \
     --home "$APP_DIR" \
     --gecos '' \
-    --uid 1000 \
-    --grp 1000 \
+    --u 1000 \
+    --G 1000 \
     dotnetuser && \
 
 # impersonate into the new user

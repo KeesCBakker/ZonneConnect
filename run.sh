@@ -21,3 +21,4 @@ docker-compose down
 echo_title "Starting container"
 docker-compose up -d --build
 
+echo_title "Finished"

@@ -6,21 +6,25 @@ echo ""
 printf "Zonneplan account email     : "
 read email
 
-printf "PvOutput API key            : "
-read api_key
+if [ ! -f ".env" ]; then
 
-printf "PvOutput System ID          : "
-read system_id
+	printf "PvOutput API key            : "
+	read api_key
 
-printf "Timezone (Europe/Amsterdam) : "
-read tz
+	printf "PvOutput System ID          : "
+	read system_id
 
-echo ""
-echo "Configuring the system..."
+	printf "Timezone (Europe/Amsterdam) : "
+	read tz
 
-echo "PvOutput__ApiKey=$api_key"		> .env
-echo "PvOutput__SystemId=$system_id"	>> .env
-echo "TZ=$tz"							>> .env
+	echo ""
+	echo "Configuring the system..."
+
+	echo "PvOutput__ApiKey=$api_key"		> .env
+	echo "PvOutput__SystemId=$system_id"	>> .env
+	echo "TZ=$tz"							>> .env
+
+fi
 
 # configure by connecting
 mkdir -p ./data

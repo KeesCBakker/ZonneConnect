@@ -1,5 +1,6 @@
 ﻿using System.CommandLine;
 using System.Runtime;
+using TimeZoneConverter;
 using ZonneConnect.PvOutput;
 using ZonneConnect.Zonneplan;
 
@@ -53,7 +54,6 @@ class CurrentCommand : ApiCommand
 
             if (data.Length > 0 && data.First().Measurements.Count > 0)
             {
-
                 last = Convert(data.First().Measurements.Last().MeasuredAt);
                 watt = data.First().Measurements.Last().Value;
                 var wattHours = data.First().Total;
@@ -105,7 +105,13 @@ class CurrentCommand : ApiCommand
 
     private DateTime Convert(DateTime measuredAt)
     {
+        var tzVar = Environment.GetEnvironmentVariable("TZ");
+        var tz = !String.IsNullOrWhiteSpace(tzVar) ?
+            TZConvert.GetTimeZoneInfo(tzVar) :
+            TimeZoneInfo.Local;
+
+
         var  utcDateTime = new DateTimeOffset(measuredAt, TimeSpan.Zero);
-        return TimeZoneInfo.ConvertTime(utcDateTime, TimeZoneInfo.Local).LocalDateTime;
+        return TimeZoneInfo.ConvertTime(utcDateTime, tz).LocalDateTime;
     }
 }

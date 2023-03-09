@@ -3,23 +3,26 @@
 set -e
 
 echo ""
-printf "Zonneplan account email: "
+printf "Zonneplan account email     : "
 read email
 
-printf "PvOutput API key       : "
+printf "PvOutput API key            : "
 read api_key
 
-printf "PvOutput System ID     : "
+printf "PvOutput System ID          : "
 read system_id
+
+printf "Timezone (Europe/Amsterdam) : "
+read tz
 
 echo ""
 echo "Configuring the system..."
 
-echo "PvOutput__ApiKey=$api_key" > .env
-echo "PvOutput__SystemId=$system_id" >> .env
+echo "PvOutput__ApiKey=$api_key"		> .env
+echo "PvOutput__SystemId=$system_id"	>> .env
+echo "TZ=$tz"							>> .env
 
 # configure by connecting
-
 mkdir -p ./data
 
 tag="zonneconnect-cli"

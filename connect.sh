@@ -37,4 +37,6 @@ docker rm "$tag"
 echo ""
 echo "Starting container..."
 
+cp ./data/token.json ./data/token-backup.json
+
 bash ./run.sh

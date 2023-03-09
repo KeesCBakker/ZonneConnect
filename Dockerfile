@@ -82,6 +82,8 @@ FROM mcr.microsoft.com/dotnet/runtime:$NET_VERSION-alpine as runtime
 
 ARG API_DLL APP_DIR
 
+RUN apk add --no-cache tzdata
+
 ENV \
    TZ=Europe/Amsterdam \
    DOTNET_CLI_TELEMETRY_OPTOUT=1

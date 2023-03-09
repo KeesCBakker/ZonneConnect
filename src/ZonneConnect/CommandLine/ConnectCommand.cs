@@ -28,7 +28,7 @@ class ConnectCommand : Command
         Console.WriteLine($"Requesting temp password for: {email}...");
         var temp = await _api.RequestTemporaryPassword(email);
 
-        Console.WriteLine($"Got temporary password:       {temp.Uuid}");
+        Console.WriteLine($"Got temporary password:       {temp!.Uuid}");
         Console.WriteLine();
         Console.Write("Please confirm the password through your email... ");
 

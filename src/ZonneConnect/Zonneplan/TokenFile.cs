@@ -18,13 +18,11 @@ public static class TokenFile
 
     public static void Write(Token token, string file = "./data/token.json")
     {
-        if(!String.IsNullOrEmpty(token.AccessToken))
+        if (!String.IsNullOrEmpty(token.AccessToken))
         {
-            return;
+            var content = JsonConvert.SerializeObject(token);
+            File.WriteAllText(file, content);
         }
-
-        var content = JsonConvert.SerializeObject(token);
-        File.WriteAllText(file, content);
     }
 }
 

@@ -27,14 +27,14 @@ abstract class ApiCommand : Command
             ExitWith("No token found, please connect first.", 1);
         }
 
-        var newToken = await Api.RefreshToken(token);
+        var newToken = await Api.RefreshToken(token!);
         if (newToken == null)
         {
             ExitWith("Token could not be refreshed.", 2);
         }
 
-        TokenFile.Write(newToken);
-        return newToken;
+        TokenFile.Write(newToken!);
+        return newToken!;
     }
 
     protected static void ExitWith(string str, int state)

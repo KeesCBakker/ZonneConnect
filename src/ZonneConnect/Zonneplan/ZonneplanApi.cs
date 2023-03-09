@@ -22,11 +22,12 @@ public class ZonneplanApi
         _client.DefaultRequestHeaders.Add("x-app-version", API_VERSION);
     }
 
-    public async Task<TempPassword?> RequestTemporaryPassword(string email)
+    public async Task<TempPassword> RequestTemporaryPassword(string email)
     {
         using var request = new HttpRequestMessage(HttpMethod.Post, LOGIN_REQUEST_URI);
         request.Content = new StringContent(JsonConvert.SerializeObject(new Request { Email = email }), System.Text.Encoding.UTF8, "application/json");
-        return await Send<TempPassword>(request);
+        var tempPassword = await Send<TempPassword>(request);
+        return tempPassword!;
     }
 
     public async Task<Token?> GetTemporaryPassword(string email, string uuid)
@@ -87,6 +88,7 @@ public class ZonneplanApi
     public async Task<MeasurementsData[]> Current(Token token, string uuid)
     {
         var url = $"{BASE_URI}/connections/{uuid}/pv_installation/charts/live";
-        return await Get<MeasurementsData[]>(token, url);
+        var data = await Get<MeasurementsData[]>(token, url);
+        return data!;
     }
 }

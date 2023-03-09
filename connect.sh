@@ -25,6 +25,9 @@ echo "TZ=$tz"							>> .env
 # configure by connecting
 mkdir -p ./data
 
+echo_title "Stopping container"
+docker-compose down
+
 tag="zonneconnect-cli"
 docker rm -f "$tag"
 docker build . --tag "$tag"

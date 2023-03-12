@@ -26,16 +26,33 @@ if [ ! -f ".env" ]; then
 
 fi
 
+# Get the UID and GID of the current user
+export GID=$(id -g)
+export UUID=$(id -g)
+
 # configure by connecting
-mkdir -p ./data
+echo "Ensure data directory"
+if [ ! -d "data" ]; then
+  mkdir data
+  chmod g+s data
+fi
 
 echo "Stopping container"
 docker-compose down
 
 tag="zonneconnect-cli"
+
+
+# Clean up
 docker rm -f "$tag"
-docker build . --tag "$tag"
+
+# Build it
+docker build . --tag "$tag" --build-arg UUID="${UUID}" --build-arg GID="${GID}"
+
+# Add it
 docker run -it --name "$tag" -v "$(pwd)/data:/app/data" --entrypoint dotnet "$tag" /app/ZonneConnect.dll connect "$email"
+
+# Clean up
 docker rm "$tag"
 
 echo ""

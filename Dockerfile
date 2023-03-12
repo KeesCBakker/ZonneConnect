@@ -94,6 +94,26 @@ COPY --from=build $APP_DIR .
 ENV PROGRAM="$API_DLL"
 ENTRYPOINT dotnet "$PROGRAM" current --poll
 
+# create a new user and change directory ownership
+# Set the build arguments with default values
+ARG UUID=1000
+ARG GID=1000
+
+# Create the dotnetuser user with the specified UID and GID
+RUN addgroup -g $GID dotnetgroup \
+    && adduser --disabled-password \
+       --home "$APP_DIR" \
+       -u "$UUID" \
+       -G dotnetgroup \
+       --gecos '' \
+       dotnetuser
+
+# Take ownership of the $APP_DIR directory
+RUN chown -R dotnetuser:$GID "$APP_DIR"
+
+# Set the user to run the container as
+USER dotnetuser
+
 LABEL cicd="zonneconnect"
 
 

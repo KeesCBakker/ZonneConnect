@@ -11,6 +11,9 @@ function echo_title {
   printf "\n$line\n$1\n$line\n\n"
 }
 
+export GID=$(id -g)
+export UUID=$(id -g)
+
 echo_title "Pulling latest source"
 git pull
 git log --pretty=oneline -1
@@ -18,7 +21,9 @@ git log --pretty=oneline -1
 echo_title "Stopping container"
 docker-compose down
 
+chmod g+s data
+
 echo_title "Starting container"
-docker-compose up -d --build
+docker-compose up --build
 
 echo_title "Finished"

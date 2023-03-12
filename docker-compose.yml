@@ -3,7 +3,15 @@ services:
   job:
     restart: always
     image: zonneconnect:latest
-    build: .
+    build:
+        context: .
+        args:
+            UUID: ${UUID:-1000}
+            GID: ${GID:-1000}
+    environment:
+      UUID: ${UUID:-1000}
+      GID: ${GID:-1000}
+    user: "${UUID}:${GID}"
     volumes:
         - ./data:/app/data 
     env_file:

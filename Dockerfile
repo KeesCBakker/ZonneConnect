@@ -110,8 +110,8 @@ RUN group_name=$(getent group $GID | cut -d: -f1) \
 # Create the dotnetuser user with the specified UID and GID
 RUN adduser --disabled-password \
       --home "$APP_DIR" \
-      --uid $UID \
-      --gid $GID \
+      --uid "$UUID" \
+      --gid "$(getent group $GID | cut -d: -f1)" \
       --gecos '' \
       dotnetuser \
    && chown -R dotnetuser:$(getent group $GID | cut -d: -f1) "$APP_DIR"

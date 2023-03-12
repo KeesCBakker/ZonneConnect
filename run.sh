@@ -24,6 +24,6 @@ docker-compose down
 chmod g+s data
 
 echo_title "Starting container"
-docker-compose up --build
+docker-compose up --build -d
 
 echo_title "Finished"

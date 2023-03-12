@@ -87,7 +87,7 @@ class CurrentCommand : ApiCommand
                     }
                     else
                     {
-                        togo = TimeSpan.FromSeconds(30);
+                        togo = TimeSpan.FromSeconds(10);
                     }
                 }
 

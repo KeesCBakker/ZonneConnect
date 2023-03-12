@@ -99,14 +99,22 @@ ENTRYPOINT dotnet "$PROGRAM" current --poll
 ARG UUID=1000
 ARG GID=1000
 
+# Check if a group with the specified GID exists
+RUN group_name=$(getent group $GID | cut -d: -f1) \
+   && if [ -z "$group_name" ]; then \
+        addgroup --gid $GID dotnetgroup; \
+      else \
+        echo "Group $GID ($group_name) already exists"; \
+      fi
+
 # Create the dotnetuser user with the specified UID and GID
-RUN addgroup -g $GID dotnetgroup \
-    && adduser --disabled-password \
-       --home "$APP_DIR" \
-       -u "$UUID" \
-       -G dotnetgroup \
-       --gecos '' \
-       dotnetuser
+RUN adduser --disabled-password \
+      --home "$APP_DIR" \
+      --uid $UID \
+      --gid $GID \
+      --gecos '' \
+      dotnetuser \
+   && chown -R dotnetuser:$(getent group $GID | cut -d: -f1) "$APP_DIR"
 
 # Take ownership of the $APP_DIR directory
 RUN chown -R dotnetuser:$GID "$APP_DIR"
